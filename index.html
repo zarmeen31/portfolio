@@ -1,0 +1,865 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zarmeen Abdullah | Portfolio</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    fontFamily: {
+                        serif: ['Playfair Display', 'serif'],
+                        sans: ['Inter', 'sans-serif'],
+                    },
+                    colors: {
+                        cream: '#FDF8F3',
+                        sand: '#F5E6D3',
+                        clay: '#D4A373',
+                        charcoal: '#2C2C2C',
+                        sage: '#A8B5A0',
+                        blush: '#E8D5C4',
+                    },
+                    animation: {
+                        'float': 'float 6s ease-in-out infinite',
+                        'fade-in-up': 'fadeInUp 0.8s ease-out forwards',
+                        'typing': 'typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite',
+                    },
+                    keyframes: {
+                        float: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' },
+                        },
+                        fadeInUp: {
+                            '0%': { opacity: '0', transform: 'translateY(30px)' },
+                            '100%': { opacity: '1', transform: 'translateY(0)' },
+                        },
+                        typing: {
+                            'from': { width: '0' },
+                            'to': { width: '100%' },
+                        },
+                        'blink-caret': {
+                            'from, to': { borderColor: 'transparent' },
+                            '50%': { borderColor: '#D4A373' },
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+        .dark .glass {
+            background: rgba(44, 44, 44, 0.8);
+        }
+        .skill-bar {
+            transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .project-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .project-card:hover {
+            transform: translateY(-10px);
+        }
+        .typing-container {
+            display: inline-block;
+            overflow: hidden;
+            white-space: nowrap;
+            border-right: 3px solid #D4A373;
+            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
+        }
+        @keyframes typing {
+            from { width: 0 }
+            to { width: 100% }
+        }
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: #D4A373 }
+        }
+        .reveal {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.8s ease-out;
+        }
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+        .blob {
+            position: absolute;
+            filter: blur(40px);
+            opacity: 0.4;
+            animation: move 20s infinite alternate;
+        }
+        @keyframes move {
+            from { transform: translate(0, 0) scale(1); }
+            to { transform: translate(20px, -20px) scale(1.1); }
+        }
+    </style>
+</head>
+<body class="bg-cream text-charcoal font-sans transition-colors duration-300 dark:bg-charcoal dark:text-cream overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass border-b border-sand/20 dark:border-charcoal/30 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-20">
+                <div class="flex-shrink-0 flex items-center">
+                    <span class="font-serif text-2xl font-bold text-clay">ZA</span>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#home" class="hover:text-clay transition-colors px-3 py-2 rounded-md text-sm font-medium">Home</a>
+                        <a href="#about" class="hover:text-clay transition-colors px-3 py-2 rounded-md text-sm font-medium">About</a>
+                        <a href="#education" class="hover:text-clay transition-colors px-3 py-2 rounded-md text-sm font-medium">Education</a>
+                        <a href="#skills" class="hover:text-clay transition-colors px-3 py-2 rounded-md text-sm font-medium">Skills</a>
+                        <a href="#projects" class="hover:text-clay transition-colors px-3 py-2 rounded-md text-sm font-medium">Projects</a>
+                        <a href="#interests" class="hover:text-clay transition-colors px-3 py-2 rounded-md text-sm font-medium">Interests</a>
+                        <a href="#contact" class="hover:text-clay transition-colors px-3 py-2 rounded-md text-sm font-medium">Contact</a>
+                    </div>
+                </div>
+                <div class="flex items-center space-x-4">
+                    <button id="theme-toggle" class="p-2 rounded-full hover:bg-sand/30 transition-colors">
+                        <i class="fas fa-moon dark:hidden text-charcoal"></i>
+                        <i class="fas fa-sun hidden dark:block text-cream"></i>
+                    </button>
+                    <button id="mobile-menu-btn" class="md:hidden p-2 rounded-md hover:bg-sand/30">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden glass border-t border-sand/20">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#home" class="block px-3 py-2 rounded-md text-base font-medium hover:text-clay">Home</a>
+                <a href="#about" class="block px-3 py-2 rounded-md text-base font-medium hover:text-clay">About</a>
+                <a href="#education" class="block px-3 py-2 rounded-md text-base font-medium hover:text-clay">Education</a>
+                <a href="#skills" class="block px-3 py-2 rounded-md text-base font-medium hover:text-clay">Skills</a>
+                <a href="#projects" class="block px-3 py-2 rounded-md text-base font-medium hover:text-clay">Projects</a>
+                <a href="#contact" class="block px-3 py-2 rounded-md text-base font-medium hover:text-clay">Contact</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-screen flex items-center justify-center pt-20 overflow-hidden">
+        <!-- Background Blobs -->
+        <div class="blob bg-sand/30 w-96 h-96 rounded-full top-20 -left-20 dark:bg-clay/20"></div>
+        <div class="blob bg-blush/40 w-80 h-80 rounded-full bottom-20 -right-20 dark:bg-sage/20" style="animation-delay: -5s;"></div>
+        
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="grid md:grid-cols-2 gap-12 items-center">
+                <div class="text-center md:text-left space-y-6 reveal active">
+                    <div class="inline-block px-4 py-2 rounded-full bg-sand/30 text-clay text-sm font-medium mb-4 dark:bg-clay/20">
+                        Welcome to my portfolio
+                    </div>
+                    <h1 class="font-serif text-5xl md:text-7xl font-bold leading-tight">
+                        Hi, I'm <span class="text-clay">Zarmeen</span><br>
+                        Abdullah
+                    </h1>
+                    <div class="h-12 md:h-16">
+                        <p class="text-xl md:text-2xl text-gray-600 dark:text-gray-300 font-light typing-container" id="typing-text">
+                            Aspiring Developer & Entrepreneur
+                        </p>
+                    </div>
+                    <p class="text-lg text-gray-600 dark:text-gray-400 max-w-lg mx-auto md:mx-0">
+                        20-year-old AI enthusiast from Peshawar, Pakistan. Building the future with code, creativity, and coffee.
+                    </p>
+                    <div class="flex flex-col sm:flex-row gap-4 justify-center md:justify-start pt-4">
+                        <a href="#about" class="px-8 py-4 bg-clay text-white rounded-full font-medium hover:bg-clay/90 transition-all transform hover:scale-105 shadow-lg hover:shadow-xl">
+                            About Me
+                        </a>
+                        <a href="#contact" class="px-8 py-4 border-2 border-clay text-clay rounded-full font-medium hover:bg-clay hover:text-white transition-all">
+                            Get in Touch
+                        </a>
+                    </div>
+                    <div class="flex gap-6 justify-center md:justify-start pt-6 text-2xl text-gray-400">
+                        <a href="mailto:zarmeenabdullah646@gmail.com" class="hover:text-clay transition-colors"><i class="fas fa-envelope"></i></a>
+                        <a href="#" class="hover:text-clay transition-colors"><i class="fab fa-github"></i></a>
+                        <a href="#" class="hover:text-clay transition-colors"><i class="fab fa-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="relative reveal active" style="transition-delay: 0.2s;">
+                    <div class="relative w-80 h-80 mx-auto">
+                        <div class="absolute inset-0 bg-clay/20 rounded-full animate-float"></div>
+                        <div class="absolute inset-4 bg-sand/30 rounded-full animate-float" style="animation-delay: -2s;"></div>
+                        <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=800&auto=format&fit=crop&q=80" 
+                             alt="Zarmeen Abdullah" 
+                             class="relative w-full h-full object-cover rounded-full shadow-2xl border-4 border-white dark:border-charcoal">
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+            <a href="#about" class="text-clay text-2xl"><i class="fas fa-chevron-down"></i></a>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-24 bg-white/50 dark:bg-charcoal/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-2 gap-16 items-center">
+                <div class="reveal">
+                    <div class="relative">
+                        <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&auto=format&fit=crop&q=80" 
+                             alt="Working" 
+                             class="rounded-2xl shadow-2xl w-full">
+                        <div class="absolute -bottom-6 -right-6 bg-clay text-white p-6 rounded-2xl shadow-xl">
+                            <p class="font-serif text-3xl font-bold">2+</p>
+                            <p class="text-sm">Years Experience</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="reveal space-y-6">
+                    <h2 class="font-serif text-4xl md:text-5xl font-bold">About Me</h2>
+                    <div class="w-20 h-1 bg-clay rounded-full"></div>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                        I'm Zarmeen Abdullah, a passionate 20-year-old developer and entrepreneur based in Peshawar, Pakistan. Currently pursuing my BS in Artificial Intelligence at the Institute of Management Sciences, I blend technical expertise with creative problem-solving.
+                    </p>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                        My journey spans from building robust management systems to exploring the frontiers of AI and machine learning. When I'm not coding, you'll find me experimenting with coffee brewing techniques, creating art, or optimizing algorithms.
+                    </p>
+                    <p class="text-lg text-gray-600 dark:text-gray-300 leading-relaxed">
+                        <strong>My Goal:</strong> To leverage AI and technology to create impactful solutions that bridge the gap between innovation and real-world applications, while building sustainable tech ventures.
+                    </p>
+                    <div class="flex gap-4 pt-4">
+                        <div class="text-center">
+                            <p class="font-serif text-3xl font-bold text-clay">6+</p>
+                            <p class="text-sm text-gray-500">Projects</p>
+                        </div>
+                        <div class="w-px bg-gray-300"></div>
+                        <div class="text-center">
+                            <p class="font-serif text-3xl font-bold text-clay">A+</p>
+                            <p class="text-sm text-gray-500">Academic</p>
+                        </div>
+                        <div class="w-px bg-gray-300"></div>
+                        <div class="text-center">
+                            <p class="font-serif text-3xl font-bold text-clay">100%</p>
+                            <p class="text-sm text-gray-500">Passion</p>
+                        </div>
+                    </div>
+                    <button onclick="downloadCV()" class="mt-6 px-8 py-3 bg-charcoal text-white rounded-full hover:bg-clay transition-colors flex items-center gap-2">
+                        <i class="fas fa-download"></i> Download CV
+                    </button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Education Section -->
+    <section id="education" class="py-24 relative overflow-hidden">
+        <div class="blob bg-sage/20 w-96 h-96 rounded-full -top-20 -right-20"></div>
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4">Education</h2>
+                <div class="w-20 h-1 bg-clay rounded-full mx-auto"></div>
+            </div>
+            
+            <div class="space-y-8">
+                <!-- Current -->
+                <div class="reveal bg-white dark:bg-charcoal/50 p-8 rounded-2xl shadow-lg border border-sand/20 dark:border-white/10 relative overflow-hidden group hover:shadow-2xl transition-all">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-clay/10 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-150"></div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between relative z-10">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="px-3 py-1 bg-clay text-white text-xs rounded-full">Current</span>
+                                <span class="text-clay font-medium">2022 - Present</span>
+                            </div>
+                            <h3 class="font-serif text-2xl font-bold mb-2">BS Artificial Intelligence</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-2">Institute of Management Sciences, Peshawar</p>
+                            <p class="text-sm text-gray-500">Focusing on Machine Learning, Deep Learning, and Intelligent Systems</p>
+                        </div>
+                        <div class="mt-4 md:mt-0">
+                            <i class="fas fa-graduation-cap text-4xl text-clay/30"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- HSSC -->
+                <div class="reveal bg-white dark:bg-charcoal/50 p-8 rounded-2xl shadow-lg border border-sand/20 dark:border-white/10 relative overflow-hidden group hover:shadow-2xl transition-all" style="transition-delay: 0.1s;">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-sage/10 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-150"></div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between relative z-10">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="px-3 py-1 bg-sage text-white text-xs rounded-full">A+ Grade</span>
+                                <span class="text-sage font-medium">Completed</span>
+                            </div>
+                            <h3 class="font-serif text-2xl font-bold mb-2">HSSC (Higher Secondary)</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-2">Peshawar Model Degree College</p>
+                            <p class="text-sm text-gray-500">Pre-Medical Group (Biology, Chemistry, Physics)</p>
+                        </div>
+                        <div class="mt-4 md:mt-0">
+                            <i class="fas fa-award text-4xl text-sage/30"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- SSC -->
+                <div class="reveal bg-white dark:bg-charcoal/50 p-8 rounded-2xl shadow-lg border border-sand/20 dark:border-white/10 relative overflow-hidden group hover:shadow-2xl transition-all" style="transition-delay: 0.2s;">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-blush/30 rounded-full -mr-16 -mt-16 transition-transform group-hover:scale-150"></div>
+                    <div class="flex flex-col md:flex-row md:items-center justify-between relative z-10">
+                        <div class="flex-1">
+                            <div class="flex items-center gap-3 mb-2">
+                                <span class="px-3 py-1 bg-clay text-white text-xs rounded-full">A+ Grade</span>
+                                <span class="text-clay font-medium">Completed</span>
+                            </div>
+                            <h3 class="font-serif text-2xl font-bold mb-2">SSC (Secondary School)</h3>
+                            <p class="text-gray-600 dark:text-gray-400 mb-2">Peshawar Model Girls High School</p>
+                            <p class="text-sm text-gray-500">Science Group with Biology (Pre-Medical)</p>
+                        </div>
+                        <div class="mt-4 md:mt-0">
+                            <i class="fas fa-school text-4xl text-clay/20"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="py-24 bg-white/50 dark:bg-charcoal/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4">Skills & Expertise</h2>
+                <div class="w-20 h-1 bg-clay rounded-full mx-auto mb-4"></div>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">A blend of technical programming skills and creative talents</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <!-- Technical Skills -->
+                <div class="reveal space-y-6">
+                    <h3 class="font-serif text-2xl font-bold mb-6 flex items-center gap-2">
+                        <i class="fas fa-code text-clay"></i> Technical Skills
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">HTML</span>
+                                <span class="text-clay">Advanced</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="skill-bar bg-clay h-2.5 rounded-full" style="width: 0%" data-width="90%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">CSS</span>
+                                <span class="text-clay">Advanced</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="skill-bar bg-clay h-2.5 rounded-full" style="width: 0%" data-width="85%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">C++</span>
+                                <span class="text-clay">Advanced</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="skill-bar bg-clay h-2.5 rounded-full" style="width: 0%" data-width="88%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Python</span>
+                                <span class="text-sage">Intermediate</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="skill-bar bg-sage h-2.5 rounded-full" style="width: 0%" data-width="75%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Creative Skills -->
+                <div class="reveal space-y-6" style="transition-delay: 0.2s;">
+                    <h3 class="font-serif text-2xl font-bold mb-6 flex items-center gap-2">
+                        <i class="fas fa-palette text-clay"></i> Creative Skills
+                    </h3>
+                    
+                    <div class="space-y-4">
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Cooking</span>
+                                <span class="text-clay">Expert</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="skill-bar bg-clay h-2.5 rounded-full" style="width: 0%" data-width="95%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Baking</span>
+                                <span class="text-clay">Advanced</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="skill-bar bg-clay h-2.5 rounded-full" style="width: 0%" data-width="85%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Art & Creative Design</span>
+                                <span class="text-clay">Advanced</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="skill-bar bg-clay h-2.5 rounded-full" style="width: 0%" data-width="80%"></div>
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <div class="flex justify-between mb-1">
+                                <span class="font-medium">Communication</span>
+                                <span class="text-sage">Advanced</span>
+                            </div>
+                            <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2.5">
+                                <div class="skill-bar bg-sage h-2.5 rounded-full" style="width: 0%" data-width="82%"></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Skills Tags -->
+            <div class="mt-12 reveal">
+                <h3 class="font-serif text-xl font-bold mb-4 text-center">Technologies & Tools</h3>
+                <div class="flex flex-wrap justify-center gap-3">
+                    <span class="px-4 py-2 bg-white dark:bg-charcoal border border-sand/30 rounded-full text-sm hover:border-clay hover:text-clay transition-colors cursor-default">MySQL</span>
+                    <span class="px-4 py-2 bg-white dark:bg-charcoal border border-sand/30 rounded-full text-sm hover:border-clay hover:text-clay transition-colors cursor-default">OpenCV</span>
+                    <span class="px-4 py-2 bg-white dark:bg-charcoal border border-sand/30 rounded-full text-sm hover:border-clay hover:text-clay transition-colors cursor-default">Scikit-learn</span>
+                    <span class="px-4 py-2 bg-white dark:bg-charcoal border border-sand/30 rounded-full text-sm hover:border-clay hover:text-clay transition-colors cursor-default">Pandas</span>
+                    <span class="px-4 py-2 bg-white dark:bg-charcoal border border-sand/30 rounded-full text-sm hover:border-clay hover:text-clay transition-colors cursor-default">JavaScript</span>
+                    <span class="px-4 py-2 bg-white dark:bg-charcoal border border-sand/30 rounded-full text-sm hover:border-clay hover:text-clay transition-colors cursor-default">Machine Learning</span>
+                    <span class="px-4 py-2 bg-white dark:bg-charcoal border border-sand/30 rounded-full text-sm hover:border-clay hover:text-clay transition-colors cursor-default">Computer Vision</span>
+                    <span class="px-4 py-2 bg-white dark:bg-charcoal border border-sand/30 rounded-full text-sm hover:border-clay hover:text-clay transition-colors cursor-default">Database Management</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="py-24">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4">Featured Projects</h2>
+                <div class="w-20 h-1 bg-clay rounded-full mx-auto mb-4"></div>
+                <p class="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">A collection of my technical work spanning web development, AI, and system design</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Project 1 -->
+                <div class="project-card bg-white dark:bg-charcoal/50 rounded-2xl overflow-hidden shadow-lg border border-sand/20 dark:border-white/10 reveal">
+                    <div class="h-48 bg-gradient-to-br from-blue-100 to-blue-200 dark:from-blue-900/30 dark:to-blue-800/30 flex items-center justify-center">
+                        <i class="fas fa-hospital text-6xl text-blue-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-bold mb-2">Hospital Management System</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">Comprehensive patient records, scheduling, and billing system with secure authentication.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs rounded">HTML</span>
+                            <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs rounded">CSS</span>
+                            <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs rounded">C++</span>
+                            <span class="px-2 py-1 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 text-xs rounded">MySQL</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 2 -->
+                <div class="project-card bg-white dark:bg-charcoal/50 rounded-2xl overflow-hidden shadow-lg border border-sand/20 dark:border-white/10 reveal" style="transition-delay: 0.1s;">
+                    <div class="h-48 bg-gradient-to-br from-orange-100 to-orange-200 dark:from-orange-900/30 dark:to-orange-800/30 flex items-center justify-center">
+                        <i class="fas fa-industry text-6xl text-orange-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-bold mb-2">Factory Management System</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">Digital platform for inventory, employee records, and production tracking.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 text-xs rounded">C++</span>
+                            <span class="px-2 py-1 bg-orange-100 dark:bg-orange-900/30 text-orange-700 dark:text-orange-300 text-xs rounded">Database</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 3 -->
+                <div class="project-card bg-white dark:bg-charcoal/50 rounded-2xl overflow-hidden shadow-lg border border-sand/20 dark:border-white/10 reveal" style="transition-delay: 0.2s;">
+                    <div class="h-48 bg-gradient-to-br from-amber-100 to-amber-200 dark:from-amber-900/30 dark:to-amber-800/30 flex items-center justify-center">
+                        <i class="fas fa-coffee text-6xl text-amber-600"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-bold mb-2">Coffee Shop POS System</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">Point-of-sale system for orders, billing, and sales tracking with intuitive UI.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 text-xs rounded">Python</span>
+                            <span class="px-2 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 text-xs rounded">HTML</span>
+                            <span class="px-2 py-1 bg-amber-100 dark:bg-amber-900/30 text-amber-700 dark:text-amber-300 text-xs rounded">CSS</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 4 -->
+                <div class="project-card bg-white dark:bg-charcoal/50 rounded-2xl overflow-hidden shadow-lg border border-sand/20 dark:border-white/10 reveal">
+                    <div class="h-48 bg-gradient-to-br from-purple-100 to-purple-200 dark:from-purple-900/30 dark:to-purple-800/30 flex items-center justify-center">
+                        <i class="fas fa-brain text-6xl text-purple-400"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-bold mb-2">AI Student Performance Predictor</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">ML model predicting student performance using regression techniques.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-xs rounded">Python</span>
+                            <span class="px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-xs rounded">Scikit-learn</span>
+                            <span class="px-2 py-1 bg-purple-100 dark:bg-purple-900/30 text-purple-700 dark:text-purple-300 text-xs rounded">Pandas</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 5 -->
+                <div class="project-card bg-white dark:bg-charcoal/50 rounded-2xl overflow-hidden shadow-lg border border-sand/20 dark:border-white/10 reveal" style="transition-delay: 0.1s;">
+                    <div class="h-48 bg-gradient-to-br from-green-100 to-green-200 dark:from-green-900/30 dark:to-green-800/30 flex items-center justify-center">
+                        <i class="fas fa-face-viewfinder text-6xl text-green-500"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-bold mb-2">Face Recognition Attendance</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">AI-powered attendance using computer vision and real-time face detection.</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-xs rounded">Python</span>
+                            <span class="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-xs rounded">OpenCV</span>
+                            <span class="px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-700 dark:text-green-300 text-xs rounded">ML</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Project 6 -->
+                <div class="project-card bg-white dark:bg-charcoal/50 rounded-2xl overflow-hidden shadow-lg border border-sand/20 dark:border-white/10 reveal" style="transition-delay: 0.2s;">
+                    <div class="h-48 bg-gradient-to-br from-clay/20 to-sand/40 flex items-center justify-center">
+                        <i class="fas fa-globe text-6xl text-clay"></i>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="font-serif text-xl font-bold mb-2">Personal Portfolio Website</h3>
+                        <p class="text-gray-600 dark:text-gray-400 text-sm mb-4">Responsive portfolio with modern UI design (This website!).</p>
+                        <div class="flex flex-wrap gap-2 mb-4">
+                            <span class="px-2 py-1 bg-clay/20 text-clay text-xs rounded">HTML</span>
+                            <span class="px-2 py-1 bg-clay/20 text-clay text-xs rounded">CSS</span>
+                            <span class="px-2 py-1 bg-clay/20 text-clay text-xs rounded">JavaScript</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Interests Section -->
+    <section id="interests" class="py-24 bg-white/50 dark:bg-charcoal/50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4">Interests & Passions</h2>
+                <div class="w-20 h-1 bg-clay rounded-full mx-auto mb-4"></div>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <div class="reveal group p-8 bg-white dark:bg-charcoal rounded-2xl shadow-md hover:shadow-xl transition-all border border-sand/20 hover:border-clay/30 text-center">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-clay/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i class="fas fa-robot text-2xl text-clay"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold mb-2">AI & Machine Learning</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Exploring neural networks and intelligent systems</p>
+                </div>
+
+                <div class="reveal group p-8 bg-white dark:bg-charcoal rounded-2xl shadow-md hover:shadow-xl transition-all border border-sand/20 hover:border-clay/30 text-center" style="transition-delay: 0.1s;">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-sage/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i class="fas fa-mobile-screen text-2xl text-sage"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold mb-2">App Development</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Building AI-powered web and mobile applications</p>
+                </div>
+
+                <div class="reveal group p-8 bg-white dark:bg-charcoal rounded-2xl shadow-md hover:shadow-xl transition-all border border-sand/20 hover:border-clay/30 text-center" style="transition-delay: 0.2s;">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-clay/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i class="fas fa-file-lines text-2xl text-clay"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold mb-2">Research Implementation</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Turning academic papers into working solutions</p>
+                </div>
+
+                <div class="reveal group p-8 bg-white dark:bg-charcoal rounded-2xl shadow-md hover:shadow-xl transition-all border border-sand/20 hover:border-clay/30 text-center">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-sage/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i class="fas fa-wand-magic-sparkles text-2xl text-sage"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold mb-2">Generative AI</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Working with LLMs and creative AI models</p>
+                </div>
+
+                <div class="reveal group p-8 bg-white dark:bg-charcoal rounded-2xl shadow-md hover:shadow-xl transition-all border border-sand/20 hover:border-clay/30 text-center" style="transition-delay: 0.1s;">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-clay/10 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i class="fas fa-chart-line text-2xl text-clay"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold mb-2">Algorithm Optimization</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Fine-tuning code for maximum efficiency</p>
+                </div>
+
+                <div class="reveal group p-8 bg-white dark:bg-charcoal rounded-2xl shadow-md hover:shadow-xl transition-all border border-sand/20 hover:border-clay/30 text-center" style="transition-delay: 0.2s;">
+                    <div class="w-16 h-16 mx-auto mb-4 bg-sage/20 rounded-full flex items-center justify-center group-hover:scale-110 transition-transform">
+                        <i class="fas fa-mug-hot text-2xl text-sage"></i>
+                    </div>
+                    <h3 class="font-serif text-xl font-bold mb-2">Coffee Business</h3>
+                    <p class="text-gray-600 dark:text-gray-400 text-sm">Entrepreneurship in the coffee industry</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="py-24 relative overflow-hidden">
+        <div class="blob bg-clay/10 w-96 h-96 rounded-full -bottom-20 -left-20"></div>
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16 reveal">
+                <h2 class="font-serif text-4xl md:text-5xl font-bold mb-4">Get In Touch</h2>
+                <div class="w-20 h-1 bg-clay rounded-full mx-auto mb-4"></div>
+                <p class="text-gray-600 dark:text-gray-400">Let's collaborate on something amazing</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 gap-12">
+                <div class="reveal space-y-6">
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-clay/10 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-envelope text-clay text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold mb-1">Email</h3>
+                            <a href="mailto:zarmeenabdullah646@gmail.com" class="text-gray-600 dark:text-gray-400 hover:text-clay transition-colors">
+                                zarmeenabdullah646@gmail.com
+                            </a>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-clay/10 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-location-dot text-clay text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold mb-1">Location</h3>
+                            <p class="text-gray-600 dark:text-gray-400">Peshawar, Pakistan</p>
+                        </div>
+                    </div>
+
+                    <div class="flex items-start gap-4">
+                        <div class="w-12 h-12 bg-clay/10 rounded-full flex items-center justify-center flex-shrink-0">
+                            <i class="fas fa-graduation-cap text-clay text-xl"></i>
+                        </div>
+                        <div>
+                            <h3 class="font-bold mb-1">Education</h3>
+                            <p class="text-gray-600 dark:text-gray-400">Institute of Management Sciences</p>
+                        </div>
+                    </div>
+
+                    <div class="pt-6">
+                        <h3 class="font-bold mb-4">Follow Me</h3>
+                        <div class="flex gap-4">
+                            <a href="#" class="w-10 h-10 rounded-full bg-clay/10 flex items-center justify-center hover:bg-clay hover:text-white transition-all">
+                                <i class="fab fa-github"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-clay/10 flex items-center justify-center hover:bg-clay hover:text-white transition-all">
+                                <i class="fab fa-linkedin-in"></i>
+                            </a>
+                            <a href="#" class="w-10 h-10 rounded-full bg-clay/10 flex items-center justify-center hover:bg-clay hover:text-white transition-all">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="reveal bg-white dark:bg-charcoal/50 p-8 rounded-2xl shadow-lg border border-sand/20 dark:border-white/10">
+                    <form id="contact-form" class="space-y-4" onsubmit="handleSubmit(event)">
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Name</label>
+                            <input type="text" required class="w-full px-4 py-3 rounded-lg bg-cream dark:bg-charcoal border border-sand/30 dark:border-white/10 focus:border-clay focus:outline-none transition-colors" placeholder="Your name">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Email</label>
+                            <input type="email" required class="w-full px-4 py-3 rounded-lg bg-cream dark:bg-charcoal border border-sand/30 dark:border-white/10 focus:border-clay focus:outline-none transition-colors" placeholder="your@email.com">
+                        </div>
+                        <div>
+                            <label class="block text-sm font-medium mb-2">Message</label>
+                            <textarea rows="4" required class="w-full px-4 py-3 rounded-lg bg-cream dark:bg-charcoal border border-sand/30 dark:border-white/10 focus:border-clay focus:outline-none transition-colors resize-none" placeholder="Your message..."></textarea>
+                        </div>
+                        <button type="submit" class="w-full py-4 bg-clay text-white rounded-lg font-medium hover:bg-clay/90 transition-all transform hover:scale-[1.02] flex items-center justify-center gap-2">
+                            <span>Send Message</span>
+                            <i class="fas fa-paper-plane"></i>
+                        </button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-charcoal text-cream py-12 dark:bg-black">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-4 md:mb-0">
+                    <span class="font-serif text-2xl font-bold text-clay">ZA</span>
+                    <p class="text-sm text-gray-400 mt-2">© 2026 Zarmeen Abdullah. All rights reserved.</p>
+                </div>
+                <div class="flex gap-6 text-sm text-gray-400">
+                    <a href="#home" class="hover:text-clay transition-colors">Home</a>
+                    <a href="#about" class="hover:text-clay transition-colors">About</a>
+                    <a href="#projects" class="hover:text-clay transition-colors">Projects</a>
+                    <a href="#contact" class="hover:text-clay transition-colors">Contact</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Dark mode toggle
+        const themeToggle = document.getElementById('theme-toggle');
+        const html = document.documentElement;
+        
+        // Check for saved theme preference or default to light
+        if (localStorage.theme === 'dark' || (!('theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+            html.classList.add('dark');
+        } else {
+            html.classList.remove('dark');
+        }
+        
+        themeToggle.addEventListener('click', () => {
+            html.classList.toggle('dark');
+            if (html.classList.contains('dark')) {
+                localStorage.theme = 'dark';
+            } else {
+                localStorage.theme = 'light';
+            }
+        });
+
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobile-menu-btn');
+        const mobileMenu = document.getElementById('mobile-menu');
+        
+        mobileMenuBtn.addEventListener('click', () => {
+            mobileMenu.classList.toggle('hidden');
+        });
+
+        // Close mobile menu when clicking a link
+        mobileMenu.querySelectorAll('a').forEach(link => {
+            link.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+        });
+
+        // Scroll reveal animation
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('active');
+                    
+                    // Animate skill bars when skills section is visible
+                    if (entry.target.querySelector('.skill-bar')) {
+                        entry.target.querySelectorAll('.skill-bar').forEach(bar => {
+                            setTimeout(() => {
+                                bar.style.width = bar.getAttribute('data-width');
+                            }, 200);
+                        });
+                    }
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.reveal').forEach((el) => observer.observe(el));
+
+        // Navbar scroll effect
+        let lastScroll = 0;
+        const navbar = document.getElementById('navbar');
+        
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.pageYOffset;
+            
+            if (currentScroll > 100) {
+                navbar.classList.add('shadow-md');
+            } else {
+                navbar.classList.remove('shadow-md');
+            }
+            
+            lastScroll = currentScroll;
+        });
+
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Contact form handler
+        function handleSubmit(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+            btn.disabled = true;
+            
+            // Simulate form submission
+            setTimeout(() => {
+                btn.innerHTML = '<i class="fas fa-check"></i> Message Sent!';
+                btn.classList.remove('bg-clay');
+                btn.classList.add('bg-green-500');
+                
+                setTimeout(() => {
+                    btn.innerHTML = originalText;
+                    btn.classList.add('bg-clay');
+                    btn.classList.remove('bg-green-500');
+                    btn.disabled = false;
+                    e.target.reset();
+                }, 2000);
+            }, 1500);
+        }
+
+        // Download CV function
+        function downloadCV() {
+            // Create a simple PDF-like experience
+            alert('CV Download feature - In a real implementation, this would download your CV PDF');
+        }
+
+        // Typing animation reset on scroll to top
+        let typingReset = false;
+        window.addEventListener('scroll', () => {
+            if (window.pageYOffset === 0 && !typingReset) {
+                const typingText = document.getElementById('typing-text');
+                typingText.style.animation = 'none';
+                setTimeout(() => {
+                    typingText.style.animation = '';
+                }, 10);
+                typingReset = true;
+            } else if (window.pageYOffset > 100) {
+                typingReset = false;
+            }
+        });
+    </script>
+</body>
+</html>
